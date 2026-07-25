@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnglishCatalyst.id - Boost Your English</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles for smooth transitions -->
+    <style>
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .lang-en { display: none; }
+        .show-en .lang-en { display: inline-block; }
+        .show-en .lang-id { display: none; }
+        
+        /* Specific block display for elements that need it */
+        .show-en blockquote.lang-en, .show-en div.lang-en, .show-en p.lang-en { display: block; }
+        
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 font-sans antialiased">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2.5 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <img src="logo.png" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/100x100/f59e0b/ffffff?text=EC';" 
+                         alt="English Catalyst Logo" 
+                         class="w-10 h-10 object-contain hover:scale-105 transition-transform duration-300">
+                    <span class="font-bold text-xl tracking-tight text-gray-900 dark:text-white">
+                        English<span class="text-primary-600 dark:text-primary-500">Catalyst</span>.id
+                    </span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 font-medium transition-colors">
+                        <span class="lang-id">Tentang</span>
+                        <span class="lang-en">About</span>
+                    </a>
+                    <a href="#programs" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 font-medium transition-colors">
+                        <span class="lang-id">Program</span>
+                        <span class="lang-en">Programs</span>
+                    </a>
+                    <a href="#tutors" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 font-medium transition-colors">
+                        <span class="lang-id">Tutor</span>
+                        <span class="lang-en">Tutors</span>
+                    </a>
+                    <a href="#testimonials" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 font-medium transition-colors">
+                        <span class="lang-id">Testimoni</span>
+                        <span class="lang-en">Testimonials</span>
+                    </a>
+                </div>
+
+                <!-- Toggles (Dark Mode & Language) -->
+                <div class="flex items-center space-x-4">
+                    <!-- Language Toggle -->
+                    <button id="langToggle" class="flex items-center gap-1 text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors bg-gray-100 dark:bg-gray-800 px-3 py-1.5 rounded-full">
+                        <i class="fa-solid fa-globe"></i>
+                        <span id="langText">ID</span>
+                    </button>
+
+                    <!-- Dark Mode Toggle -->
+                    <button id="themeToggle" class="text-gray-600 dark:text-gray-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-500">
+                        <i class="fa-solid fa-moon text-xl" id="themeIcon"></i>
+                    </button>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button id="mobileMenuBtn" class="md:hidden text-gray-600 dark:text-gray-300 hover:text-primary-600 transition-colors p-2">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <span class="lang-id">Tentang</span><span class="lang-en">About</span>
+                </a>
+                <a href="#programs" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <span class="lang-id">Program</span><span class="lang-en">Programs</span>
+                </a>
+                <a href="#tutors" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <span class="lang-id">Tutor</span><span class="lang-en">Tutors</span>
+                </a>
+                <a href="#testimonials" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <span class="lang-id">Testimoni</span><span class="lang-en">Testimonials</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800 opacity-90"></div>
+            <!-- Decorative blobs -->
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-primary-100 dark:bg-primary-900/20 blur-3xl opacity-50"></div>
+            <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-blue-200 dark:bg-blue-900/20 blur-3xl opacity-50"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="inline-block py-1 px-3 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 text-sm font-semibold mb-6 shadow-sm border border-primary-200 dark:border-primary-800">
+                <span class="lang-id">🚀 Investasi Masa Depan Anda</span>
+                <span class="lang-en">🚀 Your Future Investment</span>
+            </span>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-6 leading-tight">
+                <span class="lang-id">Tingkatkan Bahasa Inggrismu,<br>Raih <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-blue-400">Peluang Global</span></span>
+                <span class="lang-en">Boost Your English,<br>Unlock <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-blue-400">Global Opportunities</span></span>
+            </h1>
+            
+            <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-600 dark:text-gray-300 mx-auto mb-10">
+                <span class="lang-id">Kuasai TOEFL ITP dan tingkatkan 4 keterampilan utama: Reading, Writing, Listening, dan Speaking bersama ahlinya.</span>
+                <span class="lang-en">Master TOEFL ITP and improve your 4 core skills: Reading, Writing, Listening, and Speaking with the experts.</span>
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#programs" class="px-8 py-4 text-base font-semibold rounded-full text-white bg-primary-600 hover:bg-primary-700 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <span class="lang-id">Lihat Program Kami</span>
+                    <span class="lang-en">View Our Programs</span>
+                </a>
+                <a href="https://www.instagram.com/englishcatalyst.id/" target="_blank" class="px-8 py-4 text-base font-semibold rounded-full text-gray-900 dark:text-white bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-all flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-instagram text-pink-600"></i>
+                    Follow Instagram
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Features Section -->
+    <section id="about" class="py-20 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                    <span class="lang-id">Mengapa English Catalyst?</span>
+                    <span class="lang-en">Why English Catalyst?</span>
+                </h2>
+                <div class="w-24 h-1 bg-primary-600 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature 1 -->
+                <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-700">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-primary-600 dark:text-primary-400 rounded-xl flex items-center justify-center text-2xl mb-4">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Reading</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                        <span class="lang-id">Strategi memahami literatur, jurnal, dan teks akademik kompleks dengan cepat dan akurat.</span>
+                        <span class="lang-en">Strategies to understand literature, journals, and complex academic texts quickly and accurately.</span>
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-700">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-xl flex items-center justify-center text-2xl mb-4">
+                        <i class="fa-solid fa-pen-nib"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Writing</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                        <span class="lang-id">Teknik merangkai esai, tata bahasa yang tepat, dan penulisan profesional standar global.</span>
+                        <span class="lang-en">Techniques for essay crafting, proper grammar, and professional writing to global standards.</span>
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-700">
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-xl flex items-center justify-center text-2xl mb-4">
+                        <i class="fa-solid fa-headphones"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Listening</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                        <span class="lang-id">Latihan intensif mendengar berbagai aksen untuk komunikasi dan menjawab soal tes.</span>
+                        <span class="lang-en">Intensive practice in hearing various accents for communication and answering test questions.</span>
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-700">
+                    <div class="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-xl flex items-center justify-center text-2xl mb-4">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Speaking</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                        <span class="lang-id">Membangun kepercayaan diri untuk berbicara, menyampaikan gagasan, dan mentalitas global.</span>
+                        <span class="lang-en">Building confidence to speak up, deliver ideas, and cultivate a global mentality.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="py-20 bg-gray-100 dark:bg-gray-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                    <span class="lang-id">Program Unggulan Kami</span>
+                    <span class="lang-en">Our Featured Programs</span>
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                    <span class="lang-id">Pilih program yang sesuai dengan target belajar Anda dan mulailah berinvestasi untuk masa depan.</span>
+                    <span class="lang-en">Choose the program that fits your learning goals and start investing in your future.</span>
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- Program 1: TOEFL ITP Prep -->
+                <div class="bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 flex flex-col transform transition-transform hover:-translate-y-2">
+                    <div class="h-48 bg-gradient-to-r from-blue-500 to-primary-600 p-8 flex items-end relative overflow-hidden">
+                        <i class="fa-solid fa-graduation-cap absolute -top-10 -right-10 text-9xl text-white opacity-20"></i>
+                        <h3 class="text-3xl font-bold text-white relative z-10">TOEFL ITP Prep</h3>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 flex-grow">
+                            <span class="lang-id">Program intensif yang dirancang untuk memperkenalkan format soal TOEFL ITP, memberikan strategi jitu, dan mengukur kemajuan Anda.</span>
+                            <span class="lang-en">An intensive program designed to introduce the TOEFL ITP format, provide effective strategies, and measure your progress.</span>
+                        </p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center text-gray-700 dark:text-gray-300 text-sm">
+                                <i class="fa-solid fa-check text-green-500 mr-3"></i> 
+                                <span class="lang-id">Materi Grammar & Vocabulary</span>
+                                <span class="lang-en">Grammar & Vocabulary Materials</span>
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300 text-sm">
+                                <i class="fa-solid fa-check text-green-500 mr-3"></i>
+                                <span class="lang-id">Simulasi Tes Lengkap</span>
+                                <span class="lang-en">Full Test Simulation</span>
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300 text-sm">
+                                <i class="fa-solid fa-check text-green-500 mr-3"></i>
+                                <span class="lang-id">Pembahasan Strategi Cepat</span>
+                                <span class="lang-en">Quick Strategy Discussion</span>
+                            </li>
+                        </ul>
+                        <a href="https://wa.me/62859106692407?text=Halo%20English%20Catalyst,%20saya%20ingin%20mendaftar%20program%20TOEFL%20ITP%20Prep" target="_blank" class="w-full py-3 bg-gray-100 dark:bg-gray-800 hover:bg-primary-600 hover:text-white text-gray-800 dark:text-white font-semibold rounded-xl transition-colors text-center block">
+                            <span class="lang-id">Daftar Sekarang</span>
+                            <span class="lang-en">Enroll Now</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Program 2: E-Boost Camp -->
+                <div class="bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-lg border border-primary-100 dark:border-primary-900/30 flex flex-col transform transition-transform hover:-translate-y-2 ring-2 ring-primary-500 ring-offset-2 ring-offset-gray-100 dark:ring-offset-gray-800 relative">
+                    <div class="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full z-20">
+                        BEST SELLER
+                    </div>
+                    <div class="h-48 bg-gradient-to-r from-teal-400 to-emerald-500 p-8 flex items-end relative overflow-hidden">
+                        <i class="fa-solid fa-rocket absolute -top-4 -right-6 text-9xl text-white opacity-20 transform rotate-12"></i>
+                        <h3 class="text-3xl font-bold text-white relative z-10">E-Boost Camp</h3>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 flex-grow">
+                            <span class="lang-id">English Booster Camp untuk meningkatkan keberanian berbicara, diskusi akademik, dan pembentukan mentalitas global secara kilat.</span>
+                            <span class="lang-en">English Booster Camp to improve speaking courage, academic discussions, and rapid global mentality building.</span>
+                        </p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center text-gray-700 dark:text-gray-300 text-sm">
+                                <i class="fa-solid fa-check text-green-500 mr-3"></i> 
+                                <span class="lang-id">Latihan 4 Keterampilan Utama</span>
+                                <span class="lang-en">Practice 4 Core Skills</span>
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300 text-sm">
+                                <i class="fa-solid fa-check text-green-500 mr-3"></i>
+                                <span class="lang-id">Mentoring Interaktif</span>
+                                <span class="lang-en">Interactive Mentoring</span>
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300 text-sm">
+                                <i class="fa-solid fa-check text-green-500 mr-3"></i>
+                                <span class="lang-id">Kolaborasi Antar Peserta</span>
+                                <span class="lang-en">Peer Collaboration</span>
+                            </li>
+                        </ul>
+                        <a href="https://wa.me/62859106692407?text=Halo%20English%20Catalyst,%20saya%20ingin%20mendaftar%20program%20E-Boost%20Camp" target="_blank" class="w-full py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl shadow-md transition-colors text-center block">
+                            <span class="lang-id">Daftar Sekarang</span>
+                            <span class="lang-en">Enroll Now</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Program 3: IELTS Intensive Prep -->
+                <div class="bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 flex flex-col transform transition-transform hover:-translate-y-2 relative">
+                    <div class="absolute top-4 right-4 bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full z-20">
+                        POPULAR
+                    </div>
+                    <div class="h-48 bg-gradient-to-r from-purple-500 to-pink-500 p-8 flex items-end relative overflow-hidden">
+                        <i class="fa-solid fa-award absolute -top-6 -right-6 text-9xl text-white opacity-20"></i>
+                        <h3 class="text-3xl font-bold text-white relative z-10">IELTS Intensive</h3>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 flex-grow">
+                            <span class="lang-id">Persiapan komprehensif tes IELTS (Academic & General Training) untuk kebutuhan beasiswa luar negeri dan karir internasional.</span>
+                            <span class="lang-en">Comprehensive IELTS preparation (Academic & General Training) for overseas scholarships and international careers.</span>
+                        </p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center text-gray-700 dark:text-gray-300 text-sm">
+                                <i class="fa-solid fa-check text-green-500 mr-3"></i> 
+                                <span class="lang-id">Cakupan 4 Sub-Test Lengkap</span>
+                                <span class="lang-en">Coverage of All 4 Sub-Tests</span>
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300 text-sm">
+                                <i class="fa-solid fa-check text-green-500 mr-3"></i>
+                                <span class="lang-id">Feedback Esai & Speaking Langsung</span>
+                                <span class="lang-en">Direct Essay & Speaking Feedback</span>
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300 text-sm">
+                                <i class="fa-solid fa-check text-green-500 mr-3"></i>
+                                <span class="lang-id">Tips Beasiswa LPDP & Luar Negeri</span>
+                                <span class="lang-en">LPDP & Overseas Scholarship Tips</span>
+                            </li>
+                        </ul>
+                        <a href="https://wa.me/62859106692407?text=Halo%20English%20Catalyst,%20saya%20ingin%20mendaftar%20program%20IELTS%20Intensive" target="_blank" class="w-full py-3 bg-gray-100 dark:bg-gray-800 hover:bg-primary-600 hover:text-white text-gray-800 dark:text-white font-semibold rounded-xl transition-colors text-center block">
+                            <span class="lang-id">Daftar Sekarang</span>
+                            <span class="lang-en">Enroll Now</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Program 4: Private 1-on-1 Mentoring -->
+                <div class="bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 flex flex-col transform transition-transform hover:-translate-y-2 relative">
+                    <div class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full z-20">
+                        VIP PRIVATE
+                    </div>
+                    <div class="h-48 bg-gradient-to-r from-amber-500 to-orange-500 p-8 flex items-end relative overflow-hidden">
+                        <i class="fa-solid fa-user-tie absolute -top-6 -right-6 text-9xl text-white opacity-20"></i>
+                        <h3 class="text-3xl font-bold text-white relative z-10">Private 1-on-1</h3>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 flex-grow">
+                            <span class="lang-id">Bimbingan privat eksklusif tatap muka/online 1-on-1 dengan tutor ahli yang disesuaikan penuh dengan target dan ritme Anda.</span>
+                            <span class="lang-en">Exclusive 1-on-1 private mentoring fully tailored to your personal target, schedule, and learning pace.</span>
+                        </p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center text-gray-700 dark:text-gray-300 text-sm">
+                                <i class="fa-solid fa-check text-green-500 mr-3"></i> 
+                                <span class="lang-id">Kurikulum Kustom Sesuai Target</span>
+                                <span class="lang-en">Customized Target-Oriented Curriculum</span>
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300 text-sm">
+                                <i class="fa-solid fa-check text-green-500 mr-3"></i>
+                                <span class="lang-id">Jadwal Kelas Fleksibel</span>
+                                <span class="lang-en">Flexible Class Schedule</span>
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300 text-sm">
+                                <i class="fa-solid fa-check text-green-500 mr-3"></i>
+                                <span class="lang-id">Evaluasi & Progress Report Periodik</span>
+                                <span class="lang-en">Periodic Evaluation & Progress Report</span>
+                            </li>
+                        </ul>
+                        <a href="https://wa.me/62859106692407?text=Halo%20English%20Catalyst,%20saya%20ingin%20mendaftar%20program%20Private%201-on-1" target="_blank" class="w-full py-3 bg-gray-100 dark:bg-gray-800 hover:bg-primary-600 hover:text-white text-gray-800 dark:text-white font-semibold rounded-xl transition-colors text-center block">
+                            <span class="lang-id">Daftar Sekarang</span>
+                            <span class="lang-en">Enroll Now</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Banner Program Intensive IELTS & Intensive TOEFL -->
+            <div class="mt-12 max-w-6xl mx-auto bg-gradient-to-r from-indigo-900 via-primary-900 to-blue-900 rounded-3xl p-8 md:p-10 text-white shadow-xl relative overflow-hidden border border-primary-500/30">
+                <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6">
+                    <div class="text-center lg:text-left">
+                        <span class="inline-block py-1 px-3 rounded-full bg-amber-400 text-gray-900 text-xs font-extrabold uppercase tracking-wider mb-3">
+                            <span class="lang-id">Program Spesial</span>
+                            <span class="lang-en">Special Program</span>
+                        </span>
+                        <h3 class="text-2xl md:text-3xl font-extrabold text-white mb-2">
+                            Intensive IELTS & Intensive TOEFL
+                        </h3>
+                        <p class="text-blue-100 text-sm md:text-base max-w-xl">
+                            <span class="lang-id">Akses informasi lengkap, jadwal kelas terbaru, dan detail pendaftaran khusus untuk kelas Intensive IELTS & TOEFL.</span>
+                            <span class="lang-en">Access complete details, latest schedules, and special registration options for Intensive IELTS & TOEFL classes.</span>
+                        </p>
+                    </div>
+                    <a href="https://latifsafruddin.github.io/catalyst.id/" target="_blank" class="px-8 py-4 bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold text-base rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 flex items-center gap-3 shrink-0">
+                        <span>
+                            <span class="lang-id">Klik Ini Saja</span>
+                            <span class="lang-en">Click Here</span>
+                        </span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tutors Section -->
+    <section id="tutors" class="py-20 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                    <span class="lang-id">Tutor Profesional Kami</span>
+                    <span class="lang-en">Our Professional Tutors</span>
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                    <span class="lang-id">Belajar langsung dari pakar yang telah berpengalaman melatih ratusan siswa.</span>
+                    <span class="lang-en">Learn directly from experts who have experienced training hundreds of students.</span>
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                <!-- Tutor 1: Iqbal -->
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 bg-gray-50 dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+                    <div class="w-36 h-48 flex-shrink-0 rounded-2xl overflow-hidden border-4 border-amber-400/30 dark:border-amber-500/30 shadow-md bg-amber-500 relative group">
+                        <img src="iqbal.png" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/300x400/d97706/ffffff?text=Iqbal+Ibnu+Fakhri';" 
+                             alt="Iqbal Ibnu Fakhri, S.Pd., M.A." 
+                             class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105">
+                    </div>
+                    <div class="text-center sm:text-left flex-grow">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">Iqbal Ibnu Fakhri, S.Pd., M.A.</h3>
+                        <p class="text-primary-600 dark:text-primary-400 font-semibold text-sm mb-3">Senior English Tutor & Strategist</p>
+                        
+                        <!-- Badges / Key Achievements -->
+                        <div class="space-y-2 mb-4 text-xs font-medium text-gray-700 dark:text-gray-300">
+                            <div class="flex items-center gap-2 justify-center sm:justify-start bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 px-3 py-1 rounded-lg w-fit mx-auto sm:mx-0">
+                                <i class="fa-solid fa-graduation-cap text-amber-600 dark:text-amber-400"></i>
+                                <span>Lulusan University of Birmingham</span>
+                            </div>
+                            <div class="flex items-center gap-2 justify-center sm:justify-start bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 px-3 py-1 rounded-lg w-fit mx-auto sm:mx-0">
+                                <i class="fa-solid fa-award text-blue-600 dark:text-blue-400"></i>
+                                <span>Penerima Beasiswa LPDP</span>
+                            </div>
+                            <div class="flex items-center gap-2 justify-center sm:justify-start bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-300 px-3 py-1 rounded-lg w-fit mx-auto sm:mx-0">
+                                <i class="fa-solid fa-star text-emerald-600 dark:text-emerald-400"></i>
+                                <span>Overall IELTS 7.5</span>
+                            </div>
+                        </div>
+
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">
+                            <span class="lang-id">Berpengalaman dalam membimbing materi TOEFL ITP dan strategi lanjutan untuk literatur akademis internasional.</span>
+                            <span class="lang-en">Experienced in guiding TOEFL ITP materials and advanced strategies for international academic literature.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tutor 2: Fatiha -->
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 bg-gray-50 dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+                    <div class="w-36 h-48 flex-shrink-0 rounded-2xl overflow-hidden border-4 border-amber-400/30 dark:border-amber-500/30 shadow-md bg-amber-400 relative group">
+                        <img src="fatiha.png" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/300x400/eab308/ffffff?text=Fatiha+Najma+Yustisia';" 
+                             alt="Fatiha Najma Yustisia, S.Pd." 
+                             class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105">
+                    </div>
+                    <div class="text-center sm:text-left flex-grow">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">Fatiha Najma Yustisia, S.Pd.</h3>
+                        <p class="text-pink-600 dark:text-pink-400 font-semibold text-sm mb-3">Language Instructor & Motivator</p>
+                        
+                        <!-- Badges / Key Achievements -->
+                        <div class="space-y-2 mb-4 text-xs font-medium text-gray-700 dark:text-gray-300">
+                            <div class="flex items-center gap-2 justify-center sm:justify-start bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 px-3 py-1 rounded-lg w-fit mx-auto sm:mx-0">
+                                <i class="fa-solid fa-chalkboard-user text-purple-600 dark:text-purple-400"></i>
+                                <span>Professional English Educator</span>
+                            </div>
+                            <div class="flex items-center gap-2 justify-center sm:justify-start bg-pink-100 dark:bg-pink-900/30 text-pink-800 dark:text-pink-300 px-3 py-1 rounded-lg w-fit mx-auto sm:mx-0">
+                                <i class="fa-solid fa-microphone text-pink-600 dark:text-pink-400"></i>
+                                <span>International Keynote Speaker</span>
+                            </div>
+                            <div class="flex items-center gap-2 justify-center sm:justify-start bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-300 px-3 py-1 rounded-lg w-fit mx-auto sm:mx-0">
+                                <i class="fa-solid fa-comments text-emerald-600 dark:text-emerald-400"></i>
+                                <span>IELTS Speaking 7.0</span>
+                            </div>
+                        </div>
+
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">
+                            <span class="lang-id">Ahli dalam melatih keterampilan dasar dan membangun kepercayaan diri siswa dalam berkomunikasi di tingkat global.</span>
+                            <span class="lang-en">Expert in training basic skills and building students' confidence in communicating at a global level.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-gray-100 dark:bg-gray-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                    <span class="lang-id">Apa Kata Alumni Kami?</span>
+                    <span class="lang-en">What Our Alumni Say</span>
+                </h2>
+                <div class="w-24 h-1 bg-primary-600 mx-auto rounded-full mb-4"></div>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                    <span class="lang-id">Kisah sukses dan pengalaman nyata dari para alumni yang telah belajar di English Catalyst.</span>
+                    <span class="lang-en">Real success stories and experiences from alumni who studied at English Catalyst.</span>
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- Testimonial 1 -->
+                <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-gray-700 flex flex-col justify-between">
+                    <div>
+                        <!-- Stars -->
+                        <div class="flex text-amber-400 text-sm mb-4 gap-1">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 italic mb-6 text-sm md:text-base leading-relaxed">
+                            <span class="lang-id">"Skor TOEFL ITP saya naik dari 470 ke 565 dalam waktu 1 bulan saja! Strategi dari Kak Iqbal sangat to the point dan mudah dipahami. Rekomendasi banget buat yang mau kejar beasiswa!"</span>
+                            <span class="lang-en">"My TOEFL ITP score went from 470 to 565 in just 1 month! Kak Iqbal's strategies were direct and easy to understand. Highly recommended for scholarship hunters!"</span>
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+                        <div class="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg">
+                            RA
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-base">Rian Ardiansyah</h4>
+                            <p class="text-xs text-primary-600 dark:text-primary-400 font-medium">TOEFL ITP Prep Alumni</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-gray-700 flex flex-col justify-between">
+                    <div>
+                        <!-- Stars -->
+                        <div class="flex text-amber-400 text-sm mb-4 gap-1">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 italic mb-6 text-sm md:text-base leading-relaxed">
+                            <span class="lang-id">"Dulu saya selalu takut dan bingung kalau harus ngomong Bahasa Inggris. Setelah ikutan E-Boost Camp bareng Miss Fatiha, rasa percaya diri saya naik drastis. Sekarang ngomong Bahasa Inggris jadi santai!"</span>
+                            <span class="lang-en">"I used to feel terrified whenever I had to speak English. After joining E-Boost Camp with Miss Fatiha, my confidence skyrocketed. Now speaking English feels so natural!"</span>
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+                        <div class="w-12 h-12 rounded-full bg-pink-500 text-white flex items-center justify-center font-bold text-lg">
+                            AP
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-base">Amanda Putri</h4>
+                            <p class="text-xs text-pink-600 dark:text-pink-400 font-medium">E-Boost Camp Alumni</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-gray-700 flex flex-col justify-between">
+                    <div>
+                        <!-- Stars -->
+                        <div class="flex text-amber-400 text-sm mb-4 gap-1">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 italic mb-6 text-sm md:text-base leading-relaxed">
+                            <span class="lang-id">"Materi reading dan structure-nya sangat membantu! Latihan soal dan pembahasannya pas banget buat orang seperti saya yang sibuk kerja tapi butuh sertifikat TOEFL cepat."</span>
+                            <span class="lang-en">"The reading and structure materials were extremely helpful! The practice questions and explanations fit perfectly with my busy work schedule while needing a quick TOEFL certificate."</span>
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+                        <div class="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-lg">
+                            DP
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-base">Dimas Pratama</h4>
+                            <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium">TOEFL ITP Prep Alumni</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-gray-700 flex flex-col justify-between">
+                    <div>
+                        <!-- Stars -->
+                        <div class="flex text-amber-400 text-sm mb-4 gap-1">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 italic mb-6 text-sm md:text-base leading-relaxed">
+                            <span class="lang-id">"Komunitas belajarnya seru dan suportif banget! Suasana kelas bikin enggak canggung buat praktek speaking tiap hari. Tutor-tutornya ramah dan interaktif!"</span>
+                            <span class="lang-en">"The learning community is super fun and supportive! The class atmosphere made it so comfortable to practice speaking every day. Tutors are friendly and interactive!"</span>
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+                        <div class="w-12 h-12 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold text-lg">
+                            NZ
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-base">Nabila Zahra</h4>
+                            <p class="text-xs text-purple-600 dark:text-purple-400 font-medium">E-Boost Camp Alumni</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                
+                <div class="text-center md:text-left">
+                    <div class="flex items-center gap-2.5 justify-center md:justify-start mb-4">
+                        <img src="logo.png" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/100x100/f59e0b/ffffff?text=EC';" 
+                             alt="English Catalyst Logo" 
+                             class="w-9 h-9 object-contain">
+                        <span class="font-bold text-xl tracking-tight">
+                            English<span class="text-primary-500">Catalyst</span>.id
+                        </span>
+                    </div>
+                    <p class="text-gray-400 text-sm max-w-xs">
+                        <span class="lang-id">Investasi masa depan bagi Anda. Akses pengetahuan tanpa batas melalui Bahasa Inggris.</span>
+                        <span class="lang-en">Your future investment. Access limitless knowledge through English.</span>
+                    </p>
+                    <p class="text-gray-400 text-sm mt-3 flex items-center justify-center md:justify-start gap-2">
+                        <i class="fa-solid fa-location-dot text-primary-500"></i>
+                        <span>Bandung, Jawa Barat</span>
+                    </p>
+                </div>
+
+                <div class="flex gap-4">
+                    <a href="https://www.instagram.com/englishcatalyst.id/" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-pink-600 hover:text-white transition-colors">
+                        <i class="fa-brands fa-instagram text-lg"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-blue-600 hover:text-white transition-colors">
+                        <i class="fa-brands fa-linkedin-in text-lg"></i>
+                    </a>
+                    <a href="https://wa.me/62859106692407" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-green-500 hover:text-white transition-colors" title="Hubungi via WhatsApp">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm flex flex-col sm:flex-row justify-between items-center">
+                <p>&copy; 2026 EnglishCatalyst.id. All rights reserved.</p>
+                <div class="mt-2 sm:mt-0 space-x-4">
+                    <a href="#" class="hover:text-white transition-colors"><span class="lang-id">Kebijakan Privasi</span><span class="lang-en">Privacy Policy</span></a>
+                    <a href="#" class="hover:text-white transition-colors"><span class="lang-id">Syarat & Ketentuan</span><span class="lang-en">Terms of Service</span></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/62859106692407" target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center shadow-2xl hover:bg-green-600 hover:-translate-y-1 transition-all duration-300 group" aria-label="Chat via WhatsApp">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+        <!-- Tooltip -->
+        <span class="absolute right-16 bg-gray-900 dark:bg-gray-800 text-white text-xs font-semibold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-md">
+            <span class="lang-id">Hubungi Kami</span>
+            <span class="lang-en">Contact Us</span>
+        </span>
+    </a>
+
+    <!-- Interactive Scripts for Theme, Language, and Mobile Menu -->
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Dark Mode Logic ---
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const htmlElement = document.documentElement;
+
+            // Check system preference or localStorage
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                htmlElement.classList.add('dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                htmlElement.classList.remove('dark');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            }
+
+            themeToggle.addEventListener('click', () => {
+                if (htmlElement.classList.contains('dark')) {
+                    htmlElement.classList.remove('dark');
+                    localStorage.theme = 'light';
+                    themeIcon.classList.replace('fa-sun', 'fa-moon');
+                } else {
+                    htmlElement.classList.add('dark');
+                    localStorage.theme = 'dark';
+                    themeIcon.classList.replace('fa-moon', 'fa-sun');
+                }
+            });
+
+            // --- Language Toggle Logic ---
+            const langToggle = document.getElementById('langToggle');
+            const langText = document.getElementById('langText');
+            let currentLang = localStorage.getItem('lang') || 'id'; // Default Indonesian
+            
+            const setLanguage = (lang) => {
+                if (lang === 'en') {
+                    document.body.classList.add('show-en');
+                    langText.textContent = 'EN';
+                } else {
+                    document.body.classList.remove('show-en');
+                    langText.textContent = 'ID';
+                }
+                localStorage.setItem('lang', lang);
+                currentLang = lang;
+            };
+
+            // Initialize language
+            setLanguage(currentLang);
+
+            langToggle.addEventListener('click', () => {
+                setLanguage(currentLang === 'id' ? 'en' : 'id');
+            });
+
+            // --- Mobile Menu Logic ---
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Close mobile menu when a link is clicked
+            document.querySelectorAll('#mobileMenu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
